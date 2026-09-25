@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/*
+ * MISSION//CTRL design tokens.
+ * Tailwind v4 reads @theme and generates matching utilities, e.g.
+ * bg-void, text-signal-pink, font-display, etc.
+ */
+@theme {
+  --color-void: #0b0908;
+  --color-ink: #191310;
+  --color-signal-pink: #e8823f;
+  --color-dusk-blue: #4fd6c0;
+  --color-sunfade-orange: #ff5f3d;
+  --color-bone: #f4ede2;
+
+  --font-display: "Chakra Petch", sans-serif;
+  --font-body: "Manrope", sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-void);
+    color: var(--color-bone);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html,
+  body,
+  * {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* old Edge/IE */
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Edge, Safari */
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  button {
+    font-family: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-dusk-blue);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * Two orchestrated motion moments, used sparingly:
+ * - lock-on: brackets "snap in" once on the landing hero.
+ * - scanline-sweep: a single bright line sweeps down on route change.
+ */
+@keyframes lock-on {
+  0% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scanline-sweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* content is duplicated, so -50% = one full loop */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
